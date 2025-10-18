@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Kortros.Common.Hosts.Migrations</Title>
+    <PackageDescription>Общие компоненты для работы c миграциями.</PackageDescription>
+    <Description>Общие компоненты для работы с миграциями.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Contracts\Kortros.Common.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
