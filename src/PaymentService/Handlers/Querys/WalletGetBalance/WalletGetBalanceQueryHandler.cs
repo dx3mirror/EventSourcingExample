@@ -2,7 +2,7 @@
 using PaymentService.Persistence.Converters.Abstracts;
 using PaymentService.Persistence.Providers.Abstracts;
 
-namespace PaymentService.Handlers.Commands.WalletGetBalance
+namespace PaymentService.Handlers.Querys.WalletGetBalance
 {
     public sealed class WalletGetBalanceQueryHandler
     {

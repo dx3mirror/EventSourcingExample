@@ -2,7 +2,8 @@
 using PaymentService.Contracts.Requests;
 using PaymentService.Handlers.Commands.WalletCreate;
 using PaymentService.Handlers.Commands.WalletDeposit;
-using PaymentService.Handlers.Commands.WalletGetBalance;
+using PaymentService.Handlers.Querys.OwnerGetBalance;
+using PaymentService.Handlers.Querys.WalletGetBalance;
 using Wolverine;
 
 namespace PaymentService.Hosts.Controllers
@@ -14,7 +15,6 @@ namespace PaymentService.Hosts.Controllers
         /// Шина сообщений для отправки команд.
         /// </summary>
         private readonly IMessageBus _bus = bus;
-
 
         [HttpPost] 
         [ProducesResponseType(typeof(CreateWalletResponse), StatusCodes.Status201Created)]
@@ -39,10 +39,20 @@ namespace PaymentService.Hosts.Controllers
         [HttpGet("{walletId:guid}/balance")]
         [ProducesResponseType(typeof(decimal), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetBalance(Guid walletId, [FromQuery] Guid ownerId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetBalance([FromRoute]Guid walletId, [FromQuery] Guid ownerId, CancellationToken cancellationToken)
         {
             var balance = await _bus.InvokeAsync<decimal>(new WalletGetBalanceQuery(walletId, ownerId), cancellationToken);
             return Ok(balance);
         }
+
+        [HttpGet("owner/{ownerId:guid}/balance")]
+        [ProducesResponseType(typeof(decimal), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetBalanceOwner([FromRoute] Guid ownerId, CancellationToken cancellationToken)
+        {
+            var balance = await _bus.InvokeAsync<decimal?>(new OwnerGetBalanceQuery(ownerId), cancellationToken);
+            return Ok(balance);
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace PaymentService.Handlers.Commands.WalletGetBalance
+﻿namespace PaymentService.Handlers.Querys.WalletGetBalance
 {
     public sealed record WalletGetBalanceQuery(Guid WalletId, Guid OwnerId);
 }
